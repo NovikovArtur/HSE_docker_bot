@@ -189,6 +189,15 @@ def add_hard_time(message: types.Message):
 
 # @bot.message_handler(state=BUDI.delete)
 # def delete(message: types.Message):
+#     user_id = message.text
+#     print(message.chat.id)
+#     bot.send_message(726192355,
+#                      "Пошел нахуй",
+#                      reply_markup=key.keyboard_main_menu)
+
+
+# @bot.message_handler(state=BUDI.delete)
+# def delete(message: types.Message):
 #     func.cancel_timer(message.text)
 #     bot.send_message(message.chat.id, "Таймер удален", reply_markup=key.keyboard_main_menu)
 #     bot.delete_state(message.from_user.id, message.chat.id)

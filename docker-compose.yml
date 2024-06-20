@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  web:
+    image: novikovartur/myapp:latest
+    build: .
+    container_name: bot
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DEBUG=True
+      - DB_NAME=budilnik
+      - DB_USER=postgres
+      - DB_PASSWORD=hiZopOx3
+      - DB_HOST=db
+      - DB_PORT=5432
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    container_name: budilnik
+    environment:
+      POSTGRES_DB: budilnik
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: hiZopOx3
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:

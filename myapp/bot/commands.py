@@ -1,5 +1,4 @@
 import myapp
-from telebot import types
 from myapp.bot.main import bot
 from myapp.models import UserModel, NotesModel
 import myapp.bot.functions as func
@@ -61,7 +60,7 @@ def send_start(message):
 
 
 @bot.message_handler(commands=['see_timer'])
-def send_start(message):
+def send_all_timers(message):
     bot.delete_state(message.from_user.id, message.chat.id)
     try:
         UserModel.objects.get(user_id=message.from_user.id)
@@ -80,3 +79,22 @@ def send_start(message):
             text += f"{i.id}   {i.text}   {time[0:19]}\n"
         bot.send_message(message.chat.id, text, reply_markup=key.back_to_menu)
         # bot.set_state(message.from_user.id, BUDI.delete, message.chat.id)
+
+
+# @bot.message_handler(commands=['send'])
+# def send_message(message):
+#     bot.delete_state(message.from_user.id, message.chat.id)
+#     try:
+#         UserModel.objects.get(user_id=message.from_user.id)
+#     except myapp.models.UserModel.DoesNotExist:
+#         user = UserModel()
+#         user.user_id = message.from_user.id
+#         user.username = message.from_user.username
+#         user.save()
+#     if message.chat.id < 0:
+#         bot.send_message(message.chat.id, "Это команда работает только в личных сообщениях с ботом(")
+#     else:
+#         bot.send_message(message.chat.id,
+#                          "Напиши id пользователя, которому хочешь отправить соо",
+#                          reply_markup=key.back_to_menu)
+#         bot.set_state(message.from_user.id, BUDI.delete, message.chat.id)
